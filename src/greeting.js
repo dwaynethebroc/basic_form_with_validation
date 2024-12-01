@@ -1,4 +1,4 @@
-import { validate } from "webpack";
+//import { validate } from "webpack";
 
 // greeting.js
 const form = document.getElementById('form');
@@ -17,8 +17,8 @@ const password2Error = document.querySelector("#password2 + div.error");
 const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 const countryPattern = /^[a-zA-Z]+$/;
 const zipPattern = /^\d{5}(?:[-\s]\d{4})?$/;
-const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-const password2Pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+const password2Pattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
 export const validateEmail = function(){
     console.log("validate email");
@@ -85,13 +85,13 @@ export const validatePassword2 = function(){
     console.log("validate password2");
 
     if (password2.value.trim() === "") {
-        setError(password2, password2Error, "Please enter a valid password2. Minimum eight characters, at least one uppercase letter, one lowercase letter and one number");
+        setError(password2, password2Error, "Please enter a valid password. Minimum eight characters, at least one uppercase letter, one lowercase letter and one number, and one special character");
         return false;
     } else if(!password2Pattern.test(password2.value)){
-        setError(password2, password2Error, "Please enter a valid password2. Minimum eight characters, at least one uppercase letter, one lowercase letter and one number");
+        setError(password2, password2Error, "Please enter a valid password. Minimum eight characters, at least one uppercase letter, one lowercase letter and one number, and one special character");
         return false;
-    } else if (password2.value === password.value){
-        setError(password2, password2Error, "Passwords do not match")
+    } else if (password2.value !== password.value){
+        setError(password2, password2Error, "Passwords do not match");
         return false;
     } else {
         setSuccess(password2, password2Error);
@@ -107,6 +107,6 @@ export const setError = function(input, errorElement, message){
 
 export const setSuccess = function(input, errorElement){
     input.classList.add("valid");
-    input.classList.remove("invalid")
+    input.classList.remove("invalid");
     errorElement.innerText = '';
 }

@@ -12,12 +12,30 @@ const password2 = document.getElementById('password2');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const invalidInputs = document.querySelectorAll(".invalid");
+    const validInputs = document.querySelectorAll(".valid");
+    const array_valid_inputs = [...validInputs];
 
+    array_valid_inputs.forEach(input => {
+        input.checkValidity();
+    });
+
+    const invalidInputs = document.querySelectorAll(".invalid");
+    const array_bad_inputs = [...invalidInputs];    
+
+    array_bad_inputs.forEach(input => {
+        input.checkValidity();
+    });
+    
 
     if(invalidInputs.length > 0){
         alert(`Still invalid inputs: ${invalidInputs.length}`);
+        
+        array_bad_inputs.forEach(input => {
+            console.log(input);
+        });
         e.preventDefault();
+    } else {
+        alert("Valid form. High Five!");
     }
 });
 
