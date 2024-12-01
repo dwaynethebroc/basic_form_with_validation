@@ -2,11 +2,13 @@ import "./styles.css";
 import { validateEmail, validateCountry, validateZip, validatePassword, validatePassword2} from "./greeting.js";
 
 const form = document.getElementById('form');
+const button = document.getElementById('btnsubmit')
 const email = document.getElementById('email');
 const country = document.getElementById('country');
 const zip = document.getElementById('zip');
 const password = document.getElementById('password');
 const password2 = document.getElementById('password2');
+
 
 
 form.addEventListener('submit', (e) => {
@@ -17,6 +19,7 @@ form.addEventListener('submit', (e) => {
 
     array_valid_inputs.forEach(input => {
         input.checkValidity();
+        input.classList.add("submitted");
     });
 
     const invalidInputs = document.querySelectorAll(".invalid");
@@ -24,6 +27,7 @@ form.addEventListener('submit', (e) => {
 
     array_bad_inputs.forEach(input => {
         input.checkValidity();
+        input.classList.add("submitted");
     });
     
 
@@ -36,6 +40,15 @@ form.addEventListener('submit', (e) => {
         e.preventDefault();
     } else {
         alert("Valid form. High Five!");
+        array_bad_inputs.forEach(input => {
+            input.className = "";
+            input.value = "";
+        });
+
+        array_valid_inputs.forEach(input => {
+            input.className = "";
+            input.value = "";
+        });
     }
 });
 
